@@ -28,8 +28,8 @@ class AddDonation(LoginRequiredMixin, View):
         user = request.user
         name = user.first_name
         categories = list(Category.objects.all())
-        return render(request, "form.html", {"name": name,
-                                             "categories": categories})
+        return render(request, "form.html", {"user": user,
+                                            "categories": categories})
 
 
 class Login(View):
@@ -72,4 +72,11 @@ class Register(View):
             user.save()
             return redirect('login')
         return render(request, 'register.html', {"message": "Hasła nie są takie same"})
+
+class UserPage(View):
+    def get(self, request):
+        user = request.user
+        return render(request, "user-page.html", {"name": user.first_name,
+                                                  "surname":user.last_name,
+                                                  "email": user.email})
 
