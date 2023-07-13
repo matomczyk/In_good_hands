@@ -1,8 +1,10 @@
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, CreateView, ListView, UpdateView, DetailView, View, DeleteView
-from .models import Donation, Institution, User
+from .models import Donation, Institution, User, Category
 # Create your views here.
 
 
@@ -19,19 +21,43 @@ class LandingPage(View):
         return render(request, "index.html", ctx)
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
+    login_url = "/login/"
+    redirect_field_name = "add-donation"
     def get(self, request):
-        return render(request, "form.html")
+        user = request.user
+        name = user.first_name
+        categories = list(Category.objects.all())
+        return render(request, "form.html", {"name": name,
+                                             "categories": categories})
 
 
 class Login(View):
     def get(self, request):
         return render(request, "login.html")
+    @csrf_exempt
+    def post(self, request):
+        username = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('main-page')
+        else:
+            return render(request, 'register.html', {"message": "Login failed"})
+
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return render(request, 'index.html')
+
+
 
 class Register(View):
     def get(self, request):
         return render(request, "register.html")
 
+    @csrf_exempt
     def post(self, request):
         name = request.POST.get('name')
         surname = request.POST.get('surname')
