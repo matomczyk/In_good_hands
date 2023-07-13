@@ -16,9 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from giveaway.views import LandingPage
+from giveaway.views import LandingPage, AddDonation, Login, Register, Logout, UserPage
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', LandingPage.as_view(), name='main-page')
-]
+    path('', LandingPage.as_view(), name='main-page'),
+    path('login/', Login.as_view(), name='login'),
+    path('register/', Register.as_view(), name='register'),
+    path('add-donation/', AddDonation.as_view(), name='add-donation'),
+    path('logout/', Logout.as_view(), name='logout'),
+    path('user-page/', UserPage.as_view(), name='user-page')
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
