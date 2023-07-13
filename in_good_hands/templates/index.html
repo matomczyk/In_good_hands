@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
     <header class="header--main-page">
@@ -39,15 +39,13 @@
     <section id="stats" class="stats">
       <div class="container container--85">
         <div class="stats--item">
-          <em>10</em>
+          <em>{{ quantity }}</em>
           <h3>Oddanych worków</h3>
-          <p> {{ quantity }}</p>
         </div>
 
         <div class="stats--item">
-          <em>5</em>
+          <em>{{ organizations }}</em>
           <h3>Wspartych organizacji</h3>
-          <p> {{ organizations }}</p>
         </div>
 
       </div>
@@ -245,8 +243,8 @@
       <div class="bottom-line">
         <span class="bottom-line--copy">Copyright &copy; 2019</span>
         <div class="bottom-line--icons">
-          <a href="#" class="btn btn--small"><img src="{% static '/images/icon-facebook.svg' %}"/></a>
-          <a href="#" class="btn btn--small"><img src="{% static '/images/icon-instagram.svg' %}"/></a>
+          <a href="#" class="btn btn--small"><img src="{% static 'images/icon-facebook.svg' %}"/></a>
+          <a href="#" class="btn btn--small"><img src="{% static 'images/icon-instagram.svg' %}"/></a>
         </div>
       </div>
     </footer>

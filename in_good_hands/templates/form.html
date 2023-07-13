@@ -5,17 +5,20 @@
       <nav class="container container--70">
         <ul class="nav--actions">
           <li class="logged-user">
-              {% if name %}
-            Witaj {{  name }}
-              {%  endif %}
+              {% if user %}
+            Witaj {{  user.first_name }}
+
             <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
+              <li><a href="/user-page">Profil</a></li>
               <li><a href="#">Moje zbiórki</a></li>
               <li><a href="/logout">Wyloguj</a></li>
+              {%  if user.is_superuser %}
+              <li><a href="/admin">Panel administracyjny</a></li>
+              {% endif %}
             </ul>
           </li>
         </ul>
-
+        {%  endif %}
       <div class="slogan container container--90">
         <div class="slogan--item">
           <h1>
@@ -81,13 +84,7 @@
                   value="clothes-to-use"
                 />
                 <span class="checkbox"></span>
-                <span class="description"
-                  >
-
-                    {{ category.name }}
-
-                </span
-                >
+                <span class="description">{{ category.name }}</span>
               </label>
                  {% endfor %}
             </div>
