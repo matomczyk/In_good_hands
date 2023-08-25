@@ -10,15 +10,15 @@ People often have things in their houses they would like to donate, but the proc
 
 To install requirements of the project execute the following command:
 
-    $ pip install -r requirements.txt
+    `$ pip install -r requirements.txt`
 
 Establish connection to a database of your choice. I used PostgreSQL for this project. Create migrations and migrate:
 
-    $ python manage.py makemigrations then $ python manage.py migrate
+    `$ python manage.py makemigrations then $ python manage.py migrate`
 
 To start the app:
 
-    $ python manage.py runserver
+    `$ python manage.py runserver`
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
